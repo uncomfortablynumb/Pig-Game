@@ -5,4 +5,4 @@ Pig Game修改版规则：
 ### 2. 同时扔两个骰子
 - 两个骰子分数一起计算，任一骰子扔到1后现存分数都清零，并轮换到下一名玩家投骰子。
 
-[游戏链接] (https://uncomfortablynumb.github.io/Pig-Game/)
+[游戏链接](https://uncomfortablynumb.github.io/Pig-Game/)
