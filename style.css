@@ -6,7 +6,7 @@
   position: absolute;
   left: 50%;
   transform: translate(-50%);
-  top:520px;
+  top: 530px;px;
   color: #555;
   font-size: 18px;
   font-family: 'Lato';
@@ -157,8 +157,12 @@ i {
 }
 
 .btn-new { top: 45px;}
-.btn-roll { top: 403px;}
-.btn-hold { top: 467px;}
+.btn-roll { top: 395px;}
+.btn-hold { top: 440px;}
+.btn-set {top: 485px;}
+
+/*button:hover { font-weight: 600; }
+button:hover i { margin-right: 20px; }*/
 
 .dice {
     position: absolute;

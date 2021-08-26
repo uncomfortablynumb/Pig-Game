@@ -9,7 +9,7 @@ GAME RULES:
 
 */
 
-var scores, roundScore, activePlayer, gamePlaying, lastDice;
+var scores, roundScore, activePlayer, gamePlaying, lastDice, gameSet, winningScore;
 
 init();
 
@@ -26,8 +26,9 @@ init();
 // call-back function
 // document.querySelector('.btn-roll').addEventListener('click',btn);
 
+// click to roll dices
 document.querySelector('.btn-roll').addEventListener('click',function() {
-  if (gamePlaying) {
+  if (gamePlaying && gameSet) {
     // 1. Random number
     // var dice = Math.floor(Math.random() * 6) + 1;
 
@@ -51,7 +52,7 @@ document.querySelector('.btn-roll').addEventListener('click',function() {
     if (dice1 !== 1 && dice2 !== 1) {
       // Add score
       roundScore += dice1 + dice2;
-      document.querySelector('#current-' + activePlayer).textContent = roundScore;
+      document.querySelector('#current-' + activePlayer).textContent = roundScore; // textContent
     } else {
       // Next player
       nextPlayer();
@@ -68,37 +69,37 @@ document.querySelector('.btn-roll').addEventListener('click',function() {
 });
 
 document.querySelector('.btn-hold').addEventListener('click', function() {
-  if (gamePlaying) {
+  if (gamePlaying && gameSet) {
     // Add CURRENT score to GLOBAL score
     scores[activePlayer] += roundScore;
 
     // Update the UI
     document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
 
-    var input = document.querySelector('.final-score').value;
-    var winningScore;
-    
-    // Undefined, 0, null or "" are COERCED to false
-    // Anything else is COERCED to true
-    if (input) {
-      winningScore = input;
-    } else {
-      winningScore = 100;
-    }
-
     // Check if player won the game
     if (scores[activePlayer] >= winningScore) {
       document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
-      document.querySelector('.dice').style.display = 'none';
+      document.getElementById('dice-1').style.display = 'none';
+      document.getElementById('dice-2').style.display = 'none';
       document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
       document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
       gamePlaying = false;
+      gameSet = false;
     } else {
       // Next player
       nextPlayer();
     }
   }
 
+});
+
+document.querySelector('.btn-set').addEventListener('click',function() {
+  var input = document.querySelector('.final-score').value;
+  // Verify the input
+  if (input > 0 && input <= 999) {
+    winningScore = input;
+    gameSet = true;
+  }
 });
 
 function nextPlayer() {
@@ -125,13 +126,11 @@ function init() {
   scores = [0, 0];
   activePlayer = 0;
   roundScore = 0;
-  // set state variable
   gamePlaying = true;
-
+  
   // why only the orginal controled?
   document.getElementById('dice-1').style.display = 'none';
   document.getElementById('dice-2').style.display = 'none';
-
   document.getElementById('score-0').textContent = '0';
   document.getElementById('score-1').textContent = '0';
   document.getElementById('current-0').textContent = '0';
@@ -143,6 +142,11 @@ function init() {
   document.querySelector('.player-0-panel').classList.remove('active');
   document.querySelector('.player-1-panel').classList.remove('active');
   document.querySelector('.player-0-panel').classList.add('active');
+
+  // Eliminate set winning score
+  document.querySelector('.final-score').value = '';
+
+
 }
 
 
