@@ -100,6 +100,11 @@ document.querySelector('.btn-set').addEventListener('click',function() {
     winningScore = input;
     gameSet = true;
   }
+
+  // Change styles
+  document.querySelector('.btn-set').classList.add('btnStrong');
+  document.querySelector('.ion-ios-settings').style.display='none';
+  document.querySelector('.txt-set').textContent = 'Score set!';
 });
 
 function nextPlayer() {
@@ -128,7 +133,6 @@ function init() {
   roundScore = 0;
   gamePlaying = true;
   
-  // why only the orginal controled?
   document.getElementById('dice-1').style.display = 'none';
   document.getElementById('dice-2').style.display = 'none';
   document.getElementById('score-0').textContent = '0';
@@ -146,6 +150,10 @@ function init() {
   // Eliminate set winning score
   document.querySelector('.final-score').value = '';
 
+  // Remove set scores
+  document.querySelector('.btn-set').classList.remove('btnStrong');
+  document.querySelector('.txt-set').textContent = 'Set score';
+  document.querySelector('.ion-ios-settings').style.display='inline-block';
 
 }
 
