@@ -161,6 +161,43 @@ i {
 .btn-hold { top: 440px;}
 .btn-set {top: 485px;}
 
+
+/* box for panels*/
+.player-0-lost {
+  margin: 15px;
+}
+
+.player-1-lost {
+  margin: 15px;
+}
+
+/* buttons for panels*/
+.btn-0-yes {top: 535px;
+  left: 25%;} 
+
+.btn-1-yes {top: 535px;
+  left: 75%;
+}
+
+/* messages for panels*/
+.lost-0-message {
+  left: 25%;
+  font-size: 20px;
+  color: #EB4D4D;
+  line-height: 1;
+  margin-top: 10px;
+  margin-left: 40px;
+}
+
+.lost-1-message {
+  left: 75%;
+  font-size: 20px;
+  color: #EB4D4D;
+  line-height: 1;
+  margin-top: 10px;
+  margin-left: 40px;
+}
+
 .btnStrong {font-weight: 600;
 pointer-events: none;
 color: #EB4D4D;}

@@ -9,7 +9,7 @@ GAME RULES:
 
 */
 
-var scores, roundScore, activePlayer, gamePlaying, lastDice, gameSet, winningScore;
+var scores, roundScore, activePlayer, gamePlaying, lastDice, gameSet, winningScore, lostConfirm;
 
 init();
 
@@ -28,7 +28,7 @@ init();
 
 // click to roll dices
 document.querySelector('.btn-roll').addEventListener('click',function() {
-  if (gamePlaying && gameSet) {
+  if (gamePlaying && gameSet && lostConfirm) {
     // 1. Random number
     // var dice = Math.floor(Math.random() * 6) + 1;
 
@@ -52,10 +52,13 @@ document.querySelector('.btn-roll').addEventListener('click',function() {
     if (dice1 !== 1 && dice2 !== 1) {
       // Add score
       roundScore += dice1 + dice2;
+      lostConfirm = true;
       document.querySelector('#current-' + activePlayer).textContent = roundScore; // textContent
     } else {
-      // Next player
-      nextPlayer();
+      lostConfirm = false;
+      // Send notifications
+      document.querySelector('.player-' + activePlayer +'-lost').style.display = 'block';
+
     }
     // if (lastDice === dice && dice === 6) {
     //   scores[activePlayer] = 0;
@@ -69,7 +72,7 @@ document.querySelector('.btn-roll').addEventListener('click',function() {
 });
 
 document.querySelector('.btn-hold').addEventListener('click', function() {
-  if (gamePlaying && gameSet) {
+  if (gamePlaying && gameSet && lostConfirm) {
     // Add CURRENT score to GLOBAL score
     scores[activePlayer] += roundScore;
 
@@ -84,7 +87,7 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
       document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
       document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
       gamePlaying = false;
-      gameSet = false;
+      // gameSet = false;
     } else {
       // Next player
       nextPlayer();
@@ -107,10 +110,21 @@ document.querySelector('.btn-set').addEventListener('click',function() {
   document.querySelector('.txt-set').textContent = 'Score set!';
 });
 
+document.querySelector('.btn-0-yes').addEventListener('click',function() {
+  nextPlayer();
+});
+
+document.querySelector('.btn-1-yes').addEventListener('click',function() {
+  nextPlayer();
+});
+
 function nextPlayer() {
-  // Next player
+  // Remove lost messages
+  document.querySelector('.player-' + activePlayer +'-lost').style.display = 'none';
+
   activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
   roundScore = 0;
+  lostConfirm = true;
 
   document.getElementById('current-0').textContent = '0';
   document.getElementById('current-1').textContent = '0';
@@ -132,6 +146,8 @@ function init() {
   activePlayer = 0;
   roundScore = 0;
   gamePlaying = true;
+  lostConfirm = true;
+  gameSet = false;
   
   document.getElementById('dice-1').style.display = 'none';
   document.getElementById('dice-2').style.display = 'none';
@@ -154,6 +170,10 @@ function init() {
   document.querySelector('.btn-set').classList.remove('btnStrong');
   document.querySelector('.txt-set').textContent = 'Set score';
   document.querySelector('.ion-ios-settings').style.display='inline-block';
+
+  // Remove lost messages
+  document.querySelector('.player-0-lost').style.display = 'none';
+  document.querySelector('.player-1-lost').style.display = 'none';
 
 }
 
