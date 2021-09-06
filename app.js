@@ -102,12 +102,12 @@ document.querySelector('.btn-set').addEventListener('click',function() {
   if (input > 0 && input <= 999) {
     winningScore = input;
     gameSet = true;
+    
+    // Change styles
+    document.querySelector('.btn-set').classList.add('btnStrong');
+    document.querySelector('.ion-ios-settings').style.display='none';
+    document.querySelector('.txt-set').textContent = 'Score set!';
   }
-
-  // Change styles
-  document.querySelector('.btn-set').classList.add('btnStrong');
-  document.querySelector('.ion-ios-settings').style.display='none';
-  document.querySelector('.txt-set').textContent = 'Score set!';
 });
 
 document.querySelector('.btn-0-yes').addEventListener('click',function() {
